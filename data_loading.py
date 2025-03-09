@@ -1,4 +1,3 @@
-
 from keras.datasets import fashion_mnist
 import numpy as np
 

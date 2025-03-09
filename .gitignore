@@ -1,25 +1,6 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 __pycache__/
 *.pyc 
 *.log
 .idea/
 .vscode/
 /wandb/
-
-
-=======
->>>>>>> 09ca80d (Initial Commit - Added all files)
-__pycache__/
-*.pyc 
-*.log
-.idea/
-.vscode/
-/wandb/
-
-
-<<<<<<< HEAD
-=======
->>>>>>> c7e215f (Coded the optimizers, Loss functions, Backpropagation implementation and train.py using wandb)
->>>>>>> 09ca80d (Initial Commit - Added all files)
