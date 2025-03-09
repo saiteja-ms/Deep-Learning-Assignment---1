@@ -1,6 +1,5 @@
 import numpy as np
-from optimizers import SGD, Momentum, NAG, RMSprop, Adam
-
+from optimizers import SGD, Momentum, NAG, RMSprop, Adam, NAdam
 class Layer:
     def __init__(self, input_size, output_size, activation='sigmoid', weight_init='random'):
         self.input_size = input_size

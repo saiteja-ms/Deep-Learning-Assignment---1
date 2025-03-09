@@ -61,6 +61,7 @@ class NAG(Optimizer):
         if id(layer) not in self.velocity_w:
           prev_velocity_w = np.zeros_like(layer.weights)
           prev_velocity_b = np.zeros_like(layer.biases)
+
         else:
           prev_velocity_w = self.velocity_w[id(layer)].copy()
           prev_velocity_b = self.velocity_b[id(layer)].copy()

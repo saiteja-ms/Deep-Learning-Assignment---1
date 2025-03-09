@@ -31,22 +31,22 @@ def plot_sample_images(X_train, y_train, class_names):
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Train a neural network with backpropagation')
 
-    parser.add_argument('-wp', '--wandb_project', default='myprojectname',
+    parser.add_argument('-wp', '--wandb_project', default='BackPropagation_implementation',
                         help='Project name used to track experiments in Weights & Biases dashboard')
     parser.add_argument('-we', '--wandb_entity', default='myname',
                         help='Wandb Entity used to track experiments in the Weights & Biases dashboard.')
     parser.add_argument('-d', '--dataset', default='fashion_mnist', choices=['mnist', 'fashion_mnist'],
                         help='Dataset to use for training')
-    parser.add_argument('-e', '--epochs', type=int, default=1,
+    parser.add_argument('-e', '--epochs', type=int, default=5,
                         help='Number of epochs to train neural network.')
-    parser.add_argument('-b', '--batch_size', type=int, default=4,
+    parser.add_argument('-b', '--batch_size', type=int, default=64,
                         help='Batch size used to train neural network.')
     parser.add_argument('-l', '--loss', default='cross_entropy', choices=['mean_squared_error', 'cross_entropy'],
                         help='Loss function for training')
     parser.add_argument('-o', '--optimizer', default='sgd',
                         choices=['sgd', 'momentum', 'nag', 'rmsprop', 'adam', 'nadam'],
                         help='Optimizer to use for training')
-    parser.add_argument('-lr', '--learning_rate', type=float, default=0.1,
+    parser.add_argument('-lr', '--learning_rate', type=float, default=1e-3,
                         help='Learning rate used to optimize model parameters')
     parser.add_argument('-m', '--momentum', type=float, default=0.5,
                         help='Momentum used by momentum and nag optimizers.')
@@ -105,6 +105,7 @@ def main():
 
     # Plot sample images for Fashion-MNIST (Question 1)
     if config.dataset == 'fashion_mnist':
+
         class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
                        'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
         plot_sample_images(X_train, y_train, class_names)
@@ -129,7 +130,7 @@ def main():
         'beta2': config.beta2,
         'epsilon': config.epsilon
     }
-
+    
     # Call train_with_wandb to handle training and wandb logging
     train_with_wandb(model, X_train, y_train_one_hot, X_val, y_val_one_hot, config)
 
