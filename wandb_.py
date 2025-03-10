@@ -1,6 +1,7 @@
 import wandb
 import numpy as np
 from Loss_function import cross_entropy_loss, mean_squared_error, cross_entropy_gradient, mse_gradient
+from optimizers import SGD, Momentum, NAG, RMSprop, Adam, NAdam
 
 def train_with_wandb(model, X_train, y_train, X_val, y_val, config):
     # Initialize wandb run
@@ -41,9 +42,24 @@ def train_with_wandb(model, X_train, y_train, X_val, y_val, config):
             
             epoch_loss += batch_loss
             
+            # Convert optimizer string to object
+            if config['optimizer'] == 'sgd':
+                optimizer = SGD(learning_rate=config['learning_rate'], weight_decay=config['weight_decay'])
+            elif config['optimizer'] == 'momentum':
+                optimizer = Momentum(learning_rate=config['learning_rate'], momentum=config['momentum'], weight_decay=config['weight_decay'])
+            elif config['optimizer'] == 'nag':
+                optimizer = NAG(learning_rate=config['learning_rate'], momentum=config['momentum'], weight_decay=config['weight_decay'])
+            elif config['optimizer'] == 'rmsprop':
+                optimizer = RMSprop(learning_rate=config['learning_rate'], beta=config['beta'], weight_decay=config['weight_decay'])
+            elif config['optimizer'] == 'adam':
+                optimizer = Adam(learning_rate=config['learning_rate'], beta1=config['beta1'], beta2=config['beta2'], epsilon=config['epsilon'], weight_decay=config['weight_decay'])
+            elif config['optimizer'] == 'nadam':
+                optimizer = NAdam(learning_rate=config['learning_rate'], beta1=config['beta1'], beta2=config['beta2'], epsilon=config['epsilon'], weight_decay=config['weight_decay'])
+            else:
+                raise ValueError(f"Unsupported optimizer: {config['optimizer']}")
+            
             # Backward pass
-            # Pass config directly instead of calling optimizer_params
-            model.backward(delta, config['learning_rate'], config['optimizer'], config)
+            model.backward(delta, config['learning_rate'], optimizer, config)
         
         # Calculate validation metrics
         val_pred = model.forward(X_val)

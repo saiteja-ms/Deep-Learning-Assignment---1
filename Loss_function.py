@@ -19,4 +19,3 @@ def cross_entropy_gradient(y_true, y_pred):
 def mse_gradient(y_true, y_pred):
     return 2 * (y_pred - y_true) / y_true.shape[0]
 
-

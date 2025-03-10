@@ -2,13 +2,31 @@ import argparse
 import numpy as np
 import wandb
 from neural_networks import NeuralNetwork
-from keras.datasets import fashion_mnist, mnist
+from keras.datasets import fashion_mnist
 from data_loading import load_fashion_mnist
 from wandb_ import train_with_wandb  # Import the train_with_wandb function
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import seaborn as sns
 from Loss_function import cross_entropy_loss, mean_squared_error
+
+def plot_sample_images(X_train, y_train, class_names):
+    """Plots 1 sample image for each class in a grid."""
+    num_classes = len(class_names)
+    fig, axes = plt.subplots(2, 5, figsize=(12, 5))  # Create 2x5 grid of subplots
+    axes = axes.ravel()  # Flatten the 2D array of axes into a 1D array
+
+    for i in range(num_classes):
+        # Find the first index of the class
+        idx = np.where(y_train == i)[0][0]
+        image = X_train[idx].reshape(28, 28)  # Reshape back to 28x28
+        axes[i].imshow(image, cmap='gray')
+        axes[i].set_title(class_names[i])
+        axes[i].axis('off')
+
+    plt.tight_layout()
+    plt.savefig("fashion_mnist_samples.png") # Save the figure
+    plt.close()
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Train a neural network with backpropagation')
@@ -75,23 +93,45 @@ def plot_confusion_matrix(y_true, y_pred, classes, filename="confusion_matrix.pn
 def main():
     args = parse_arguments()
 
+    # Initialize wandb
+    wandb.init(project=args.wandb_project, entity=args.wandb_entity, config=args)
+    config = wandb.config
+
     # Load dataset
-    X_train, X_val, X_test = load_dataset(args.dataset)
+    X_train, X_val, X_test = load_dataset(config.dataset)
     X_train, y_train_one_hot, y_train = X_train
     X_val, y_val_one_hot, y_val = X_val
     X_test, y_test_one_hot, y_test = X_test
 
+    # Plot sample images for Fashion-MNIST (Question 1)
+    if config.dataset == 'fashion_mnist':
+        class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
+                       'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
+        plot_sample_images(X_train, y_train, class_names)
+        wandb.log({"fashion_mnist_samples": wandb.Image("fashion_mnist_samples.png")}) # Log to wandb
+
     # Define network architecture
     input_size = X_train.shape[1]  # 784 for both MNIST and Fashion-MNIST
-    hidden_sizes = [args.hidden_size] * args.num_layers
+    hidden_sizes = [config.hidden_size] * config.num_layers
     output_size = 10  # 10 classes for both MNIST and Fashion-MNIST
 
     # Create model
     model = NeuralNetwork(input_size, hidden_sizes, output_size,
-                          activation=args.activation, weight_init=args.weight_init)
+                          activation=config.activation, weight_init=config.weight_init)
+
+    # Define optimizer parameters
+    optimizer_params = {
+        'learning_rate': config.learning_rate,
+        'weight_decay': config.weight_decay,
+        'momentum': config.momentum,
+        'beta': config.beta,
+        'beta1': config.beta1,
+        'beta2': config.beta2,
+        'epsilon': config.epsilon
+    }
 
     # Call train_with_wandb to handle training and wandb logging
-    train_with_wandb(model, X_train, y_train_one_hot, X_val, y_val_one_hot, vars(args))
+    train_with_wandb(model, X_train, y_train_one_hot, X_val, y_val_one_hot, config)
 
     # Evaluate on test set
     test_pred = model.forward(X_test)
