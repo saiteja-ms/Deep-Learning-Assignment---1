@@ -13,9 +13,9 @@ def parse_args():
     parser = argparse.ArgumentParser(description='Run experiments on MNIST dataset')
     
     # Wandb arguments
-    parser.add_argument('-wp', '--wandb_project', type=str, default='mnist_experiments', 
+    parser.add_argument('-wp', '--wandb_project', type=str, default='Fashion_mnist_sweep_backprop', 
                         help='Project name used to track experiments in Weights & Biases dashboard')
-    parser.add_argument('-we', '--wandb_entity', type=str, default='teja_sai', 
+    parser.add_argument('-we', '--wandb_entity', type=str, default='teja_sai-indian-institute-of-technology-madras', 
                         help='Wandb Entity used to track experiments in the Weights & Biases dashboard')
     
     return parser.parse_args()
@@ -34,32 +34,32 @@ def main():
             "name": "config1_adam_relu",
             "optimizer": "adam",
             "learning_rate": 0.001,
-            "batch_size": 64,
-            "num_layers": 3,
-            "hidden_size": 128,
+            "batch_size": 16,
+            "num_layers": 5,
+            "hidden_size": 64,
             "activation": "ReLU",
             "weight_init": "Xavier",
-            "weight_decay": 0.0005
+            "weight_decay": 0
         },
         {
             "name": "config2_nadam_relu",
             "optimizer": "nadam",
             "learning_rate": 0.001,
             "batch_size": 64,
-            "num_layers": 2,
-            "hidden_size": 256,
+            "num_layers": 4,
+            "hidden_size": 128,
             "activation": "ReLU",
             "weight_init": "Xavier",
             "weight_decay": 0
         },
         {
-            "name": "config3_rmsprop_tanh",
+            "name": "config3_rmsprop_relu",
             "optimizer": "rmsprop",
             "learning_rate": 0.001,
             "batch_size": 32,
-            "num_layers": 2,
-            "hidden_size": 512,
-            "activation": "tanh",
+            "num_layers": 3,
+            "hidden_size": 64,
+            "activation": "ReLU",
             "weight_init": "Xavier",
             "weight_decay": 0
         }

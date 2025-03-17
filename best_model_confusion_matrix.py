@@ -1,53 +1,142 @@
-import wandb
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+import seaborn as sns
+from sklearn.metrics import confusion_matrix
+import wandb
 from src.data import load_data
 from src.model import NeuralNetwork
 
-# Initialize wandb
-wandb.init(project='fashion_mnist_best_model', entity='teja_sai')
+def plot_creative_confusion_matrix(model, X_test, y_test):
+    """
+    Create a creative confusion matrix visualization for the best model.
+    
+    Args:
+        model: Trained neural network model
+        X_test: Test data
+        y_test: Test labels (one-hot encoded)
+    """
+    # Make predictions
+    y_pred = model.predict(X_test)
+    y_true = np.argmax(y_test, axis=1)
+    
+    # Compute confusion matrix
+    cm = confusion_matrix(y_true, y_pred)
+    
+    # Normalize the confusion matrix
+    cm_normalized = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
 
-# Load test data
-(_, _), (_, _), (X_test, y_test) = load_data('fashion_mnist')
+    # Class names
+    class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
+                  'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
+    
+    # Create a more creative visualization
+    plt.figure(figsize=(14, 12))
+    
+    # Use a custom colormap with gradient
+    cmap = sns.color_palette("viridis", as_cmap=True)
+    
+    # Plot the normalized confusion matrix with correct format for floats
+    ax = sns.heatmap(cm_normalized, annot=True, fmt='.2f', cmap=cmap, 
+                    xticklabels=class_names, yticklabels=class_names)
+    
+    # Add title with model details
+    plt.title('Fashion-MNIST Classification Results\n5-layer ReLU Network with Adam Optimizer', 
+              fontsize=18, fontweight='bold', pad=20)
+    
+    # Add axis labels with better styling
+    plt.xlabel('Predicted Label', fontsize=14, fontweight='bold')
+    plt.ylabel('True Label', fontsize=14, fontweight='bold')
+    
+    # Rotate x-axis labels for better readability
+    plt.xticks(rotation=45, ha='right', fontsize=10)
+    plt.yticks(fontsize=10)
+    
+    # Calculate and display accuracy
+    accuracy = np.mean(y_pred == y_true)
+    
+    # Highlight the diagonal (correct predictions)
+    for i in range(len(class_names)):
+        plt.text(i+0.5, i+0.5, f'{cm_normalized[i,i]:.2f}', 
+                ha='center', va='center', fontsize=15, color='white', 
+                bbox={'facecolor':'green', 'alpha':0.6, 'pad':10})
+    
+    # Find and highlight the most confused classes
+    np.fill_diagonal(cm_normalized, 0)  # Remove diagonal for finding max confusion
+    max_confusion = np.unravel_index(np.argmax(cm_normalized), cm_normalized.shape)
+    plt.text(max_confusion[1]+0.5, max_confusion[0]+0.5, f'{cm_normalized[max_confusion]:.2f}', 
+            ha='center', va='center', fontsize=15, color='white', 
+            bbox={'facecolor':'red', 'alpha':0.6, 'pad':10})
+    
+    # Add model architecture details
+    arch_details = "Model Architecture:\n" + \
+                   "- 5 Hidden Layers (64 neurons each)\n" + \
+                   "- ReLU Activation\n" + \
+                   "- Adam Optimizer (lr=0.001)\n" + \
+                   "- Batch Size: 16\n" + \
+                   "- Xavier Initialization\n" + \
+                   "- No Weight Decay"
+    
+    plt.figtext(0.15, 0.02, arch_details, fontsize=10,
+                bbox={'facecolor':'lightblue', 'alpha':0.5, 'pad':5, 'boxstyle':'round'})
+    
+    plt.tight_layout(rect=[0, 0.05, 0.8, 0.95])
+    plt.savefig('best_model_confusion_matrix_normalized.png')
+    
+    # Log to wandb with a meaningful name
+    run_name = f"cm_normalized_hl_5_bs_16_ac_ReLU"
+    wandb.init(name=run_name, project="Fashion_mnist_sweep_backprop", entity="teja_sai-indian-institute-of-technology-madras")
+    wandb.log({"best_model_confusion_matrix_normalized": wandb.Image('best_model_confusion_matrix_normalized.png')})
+    wandb.finish()
+    
+    return accuracy
 
-# Create model with your best hyperparameters (replace with your best config)
-input_size = X_test.shape[1]
-hidden_sizes = [128, 128, 128]  # Example - use your best model's architecture
-output_size = 10
+def main():
+    # Initialize wandb first
+    run_name = f"train_hl_5_bs_16_ac_ReLU"
+    wandb.init(name=run_name, project="Fashion_mnist_sweep_backprop", entity="teja_sai-indian-institute-of-technology-madras")
+    
+    # Load and preprocess data
+    (X_train, y_train), (X_val, y_val), (X_test, y_test) = load_data('fashion_mnist')
+    
+    # Create model with best parameters from the image
+    input_size = X_train.shape[1]  # 784 for Fashion MNIST
+    hidden_sizes = [64] * 5  # 5 hidden layers with 64 neurons each
+    output_size = 10  # 10 classes for Fashion MNIST
+    
+    model = NeuralNetwork(
+        input_size=input_size,
+        hidden_sizes=hidden_sizes,
+        output_size=output_size,
+        activation="ReLU",
+        weight_init="Xavier"
+    )
+    
+    # Configure optimizer
+    optimizer_config = {
+        'learning_rate': 0.001,
+        'weight_decay': 0
+    }
+    
+    # Train model
+    history = model.train(
+        X_train=X_train,
+        y_train=y_train,
+        X_val=X_val,
+        y_val=y_val,
+        epochs=10,
+        batch_size=16,
+        loss_name="cross_entropy",
+        optimizer_name="adam",
+        optimizer_config=optimizer_config,
+        wandb_log=True
+    )
+    
+    # Finish the training wandb run
+    wandb.finish()
+    
+    # Evaluate on test set and create confusion matrix (this will create a new wandb run)
+    test_accuracy = plot_creative_confusion_matrix(model, X_test, y_test)
+    print(f"Test accuracy: {test_accuracy:.4f}")
 
-model = NeuralNetwork(
-    input_size=input_size,
-    hidden_sizes=hidden_sizes,
-    output_size=output_size,
-    activation="ReLU",  # Use your best model's activation
-    weight_init="Xavier"  # Use your best model's weight init
-)
-
-# Get predictions
-y_pred = model.predict(X_test)
-
-# Compute confusion matrix
-cm = confusion_matrix(y_test, y_pred)
-
-# Create a more creative visualization
-class_names = ["T-shirt/top", "Trouser", "Pullover", "Dress", "Coat", 
-               "Sandal", "Shirt", "Sneaker", "Bag", "Ankle boot"]
-
-# Create a more visually appealing confusion matrix
-fig, ax = plt.subplots(figsize=(12, 10))
-disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=class_names)
-disp.plot(ax=ax, cmap='viridis', values_format='d')
-plt.title('Confusion Matrix for Best Fashion-MNIST Model', fontsize=18, fontweight='bold')
-
-# Add accuracy information
-accuracy = np.sum(np.diag(cm)) / np.sum(cm)
-plt.figtext(0.5, 0.01, f'Test Accuracy: {accuracy:.4f}', 
-            ha='center', fontsize=16, bbox={'facecolor':'lightgreen', 'alpha':0.5, 'pad':5})
-
-# Save and log to wandb
-plt.savefig('confusion_matrix.png')
-wandb.log({"confusion_matrix": wandb.Image('confusion_matrix.png'),
-           "test_accuracy": accuracy})
-
-wandb.finish()
+if __name__ == "__main__":
+    main()

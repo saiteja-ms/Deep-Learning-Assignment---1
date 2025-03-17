@@ -1,0 +1,1 @@
+{"columns": ["Configuration", "Optimizer", "Activation", "Num Layers", "Hidden Size", "Test Accuracy"], "data": [["config1_adam_relu", "adam", "ReLU", 5, 64, 0.9741], ["config2_nadam_relu", "nadam", "ReLU", 4, 128, 0.9775], ["config3_rmsprop_relu", "rmsprop", "ReLU", 3, 64, 0.9747]]}

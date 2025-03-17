@@ -1,0 +1,1 @@
+{"columns": ["Loss Function", "Training Loss", "Validation Loss", "Training Accuracy", "Validation Accuracy", "Test Accuracy"], "data": [["Cross Entropy", 0.27099114854295575, 0.33247587253349353, 0.9007037037037536, 0.8843333333333333, 0.8753], ["Mean Squared Error", 0.1433239889255102, 0.1695331150372038, 0.8996666666667151, 0.8805, 0.8717]]}
