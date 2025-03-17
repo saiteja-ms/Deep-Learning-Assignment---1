@@ -1,0 +1,10 @@
+Epoch 1/5: 100%|████████| 844/844 [00:07<00:00, 115.12it/s]
+Epoch 1/5 - loss: 2.3028 - accuracy: 0.0981 - val_loss: 2.3029 - val_accuracy: 0.0983
+Epoch 2/5: 100%|████████| 844/844 [00:06<00:00, 122.52it/s]
+Epoch 2/5 - loss: 2.3027 - accuracy: 0.0995 - val_loss: 2.3028 - val_accuracy: 0.0933
+Epoch 3/5: 100%|████████| 844/844 [00:06<00:00, 127.28it/s]
+Epoch 3/5 - loss: 2.3027 - accuracy: 0.1003 - val_loss: 2.3027 - val_accuracy: 0.1020
+Epoch 4/5: 100%|████████| 844/844 [00:06<00:00, 120.79it/s]
+Epoch 4/5 - loss: 2.3027 - accuracy: 0.0977 - val_loss: 2.3026 - val_accuracy: 0.1013
+Epoch 5/5: 100%|████████| 844/844 [00:07<00:00, 112.81it/s]
+Epoch 5/5 - loss: 2.3027 - accuracy: 0.0994 - val_loss: 2.3027 - val_accuracy: 0.1013

@@ -1,204 +1,225 @@
 import numpy as np
 
 class Optimizer:
+    """
+    Class containing optimization algorithms.
+    """
     @staticmethod
-    def sgd(params, grads, config=None):
-        if config is None:
-            config = {}
+    def sgd(params, grads, config):
+        """
+        Stochastic Gradient Descent optimizer.
         
+        Args:
+            params (list): List of parameters to update
+            grads (list): List of gradients
+            config (dict): Optimizer configuration
+            
+        Returns:
+            tuple: (updated_params, updated_config)
+        """
         learning_rate = config.get('learning_rate', 0.01)
         weight_decay = config.get('weight_decay', 0.0)
         
-        for param, grad in zip(params, grads):
-            # L2 regularization
+        for i, param in enumerate(params):
             if weight_decay > 0:
-                grad = grad + weight_decay * param
-            
-            # Update parameters
-            param -= learning_rate * grad
+                grads[i] = grads[i] + weight_decay * param
+            params[i] = param - learning_rate * grads[i]
         
         return params, config
     
     @staticmethod
-    def momentum(params, grads, config=None):
-        if config is None:
-            config = {}
+    def momentum(params, grads, config):
+        """
+        Momentum optimizer.
         
-        learning_rate = config.get('learning_rate', 0.01)
-        momentum = config.get('momentum', 0.9)
-        weight_decay = config.get('weight_decay', 0.0)
-        
-        # Initialize velocity if not already done
-        if 'velocity' not in config:
-            config['velocity'] = [np.zeros_like(param) for param in params]
-        
-        for i, (param, grad) in enumerate(zip(params, grads)):
-            # L2 regularization
-            if weight_decay > 0:
-                grad = grad + weight_decay * param
+        Args:
+            params (list): List of parameters to update
+            grads (list): List of gradients
+            config (dict): Optimizer configuration
             
-            # Update velocity
-            config['velocity'][i] = momentum * config['velocity'][i] - learning_rate * grad
-            
-            # Update parameters
-            param += config['velocity'][i]
-        
-        return params, config
-    
-    @staticmethod
-    def nag(params, grads, config=None):
-        if config is None:
-            config = {}
-        
+        Returns:
+            tuple: (updated_params, updated_config)
+        """
         learning_rate = config.get('learning_rate', 0.01)
         momentum = config.get('momentum', 0.9)
         weight_decay = config.get('weight_decay', 0.0)
         
-        # Initialize velocity if not already done
         if 'velocity' not in config:
             config['velocity'] = [np.zeros_like(param) for param in params]
         
-        for i, (param, grad) in enumerate(zip(params, grads)):
-            # L2 regularization
+        for i, param in enumerate(params):
             if weight_decay > 0:
-                grad = grad + weight_decay * param
+                grads[i] = grads[i] + weight_decay * param
             
-            # Store old velocity
-            old_velocity = config['velocity'][i].copy()
-            
-            # Update velocity
-            config['velocity'][i] = momentum * config['velocity'][i] - learning_rate * grad
-            
-            # Update parameters with Nesterov correction
-            param += -momentum * old_velocity + (1 + momentum) * config['velocity'][i]
+            config['velocity'][i] = momentum * config['velocity'][i] - learning_rate * grads[i]
+            params[i] = param + config['velocity'][i]
         
         return params, config
     
     @staticmethod
-    def rmsprop(params, grads, config=None):
-        if config is None:
-            config = {}
+    def nag(params, grads, config):
+        """
+        Nesterov Accelerated Gradient optimizer.
         
+        Args:
+            params (list): List of parameters to update
+            grads (list): List of gradients
+            config (dict): Optimizer configuration
+            
+        Returns:
+            tuple: (updated_params, updated_config)
+        """
+        learning_rate = config.get('learning_rate', 0.01)
+        momentum = config.get('momentum', 0.9)
+        weight_decay = config.get('weight_decay', 0.0)
+        
+        if 'velocity' not in config:
+            config['velocity'] = [np.zeros_like(param) for param in params]
+        
+        for i, param in enumerate(params):
+            if weight_decay > 0:
+                grads[i] = grads[i] + weight_decay * param
+            
+            v_prev = config['velocity'][i].copy()
+            config['velocity'][i] = momentum * config['velocity'][i] - learning_rate * grads[i]
+            params[i] = param - momentum * v_prev + (1 + momentum) * config['velocity'][i]
+        
+        return params, config
+    
+    @staticmethod
+    def rmsprop(params, grads, config):
+        """
+        RMSprop optimizer.
+        
+        Args:
+            params (list): List of parameters to update
+            grads (list): List of gradients
+            config (dict): Optimizer configuration
+            
+        Returns:
+            tuple: (updated_params, updated_config)
+        """
         learning_rate = config.get('learning_rate', 0.01)
         beta = config.get('beta', 0.9)
         epsilon = config.get('epsilon', 1e-8)
         weight_decay = config.get('weight_decay', 0.0)
         
-        # Initialize cache if not already done
         if 'cache' not in config:
             config['cache'] = [np.zeros_like(param) for param in params]
         
-        for i, (param, grad) in enumerate(zip(params, grads)):
-            # L2 regularization
+        for i, param in enumerate(params):
             if weight_decay > 0:
-                grad = grad + weight_decay * param
+                grads[i] = grads[i] + weight_decay * param
             
-            # Update cache
-            config['cache'][i] = beta * config['cache'][i] + (1 - beta) * grad**2
-            
-            # Update parameters
-            param -= learning_rate * grad / (np.sqrt(config['cache'][i]) + epsilon)
+            config['cache'][i] = beta * config['cache'][i] + (1 - beta) * grads[i]**2
+            params[i] = param - learning_rate * grads[i] / (np.sqrt(config['cache'][i]) + epsilon)
         
         return params, config
     
     @staticmethod
-    def adam(params, grads, config=None):
-        if config is None:
-            config = {}
+    def adam(params, grads, config):
+        """
+        Adam optimizer.
         
-        learning_rate = config.get('learning_rate', 0.001)
+        Args:
+            params (list): List of parameters to update
+            grads (list): List of gradients
+            config (dict): Optimizer configuration
+            
+        Returns:
+            tuple: (updated_params, updated_config)
+        """
+        learning_rate = config.get('learning_rate', 0.01)
         beta1 = config.get('beta1', 0.9)
         beta2 = config.get('beta2', 0.999)
         epsilon = config.get('epsilon', 1e-8)
         weight_decay = config.get('weight_decay', 0.0)
         
-        # Initialize m and v if not already done
-        if 'm' not in config:
+        if 't' not in config:
+            config['t'] = 0
             config['m'] = [np.zeros_like(param) for param in params]
             config['v'] = [np.zeros_like(param) for param in params]
-            config['t'] = 0
         
         config['t'] += 1
         
-        for i, (param, grad) in enumerate(zip(params, grads)):
-            # L2 regularization
+        for i, param in enumerate(params):
             if weight_decay > 0:
-                grad = grad + weight_decay * param
+                grads[i] = grads[i] + weight_decay * param
             
-            # Update biased first moment estimate
-            config['m'][i] = beta1 * config['m'][i] + (1 - beta1) * grad
+            config['m'][i] = beta1 * config['m'][i] + (1 - beta1) * grads[i]
+            config['v'][i] = beta2 * config['v'][i] + (1 - beta2) * grads[i]**2
             
-            # Update biased second raw moment estimate
-            config['v'][i] = beta2 * config['v'][i] + (1 - beta2) * grad**2
-            
-            # Compute bias-corrected first moment estimate
             m_hat = config['m'][i] / (1 - beta1**config['t'])
-            
-            # Compute bias-corrected second raw moment estimate
             v_hat = config['v'][i] / (1 - beta2**config['t'])
             
-            # Update parameters
-            param -= learning_rate * m_hat / (np.sqrt(v_hat) + epsilon)
+            params[i] = param - learning_rate * m_hat / (np.sqrt(v_hat) + epsilon)
         
         return params, config
     
     @staticmethod
-    def nadam(params, grads, config=None):
-        if config is None:
-            config = {}
+    def nadam(params, grads, config):
+        """
+        Nadam optimizer (Adam with Nesterov momentum).
         
-        learning_rate = config.get('learning_rate', 0.001)
+        Args:
+            params (list): List of parameters to update
+            grads (list): List of gradients
+            config (dict): Optimizer configuration
+            
+        Returns:
+            tuple: (updated_params, updated_config)
+        """
+        learning_rate = config.get('learning_rate', 0.01)
         beta1 = config.get('beta1', 0.9)
         beta2 = config.get('beta2', 0.999)
         epsilon = config.get('epsilon', 1e-8)
         weight_decay = config.get('weight_decay', 0.0)
         
-        # Initialize m and v if not already done
-        if 'm' not in config:
+        if 't' not in config:
+            config['t'] = 0
             config['m'] = [np.zeros_like(param) for param in params]
             config['v'] = [np.zeros_like(param) for param in params]
-            config['t'] = 0
         
         config['t'] += 1
         
-        for i, (param, grad) in enumerate(zip(params, grads)):
-            # L2 regularization
+        for i, param in enumerate(params):
             if weight_decay > 0:
-                grad = grad + weight_decay * param
+                grads[i] = grads[i] + weight_decay * param
             
-            # Update biased first moment estimate
-            config['m'][i] = beta1 * config['m'][i] + (1 - beta1) * grad
+            config['m'][i] = beta1 * config['m'][i] + (1 - beta1) * grads[i]
+            config['v'][i] = beta2 * config['v'][i] + (1 - beta2) * grads[i]**2
             
-            # Update biased second raw moment estimate
-            config['v'][i] = beta2 * config['v'][i] + (1 - beta2) * grad**2
-            
-            # Compute bias-corrected first moment estimate
             m_hat = config['m'][i] / (1 - beta1**config['t'])
-            
-            # Compute bias-corrected second raw moment estimate
             v_hat = config['v'][i] / (1 - beta2**config['t'])
             
-            # Nesterov accelerated gradient term
-            m_hat_nesterov = (beta1 * m_hat + (1 - beta1) * grad) / (1 - beta1**config['t'])
+            m_hat_next = beta1 * m_hat + (1 - beta1) * grads[i] / (1 - beta1**config['t'])
             
-            # Update parameters
-            param -= learning_rate * m_hat_nesterov / (np.sqrt(v_hat) + epsilon)
+            params[i] = param - learning_rate * m_hat_next / (np.sqrt(v_hat) + epsilon)
         
         return params, config
     
     @staticmethod
-    def get_optimizer(name):
-        if name == "sgd":
+    def get_optimizer(optimizer_name):
+        """
+        Get optimizer function by name.
+        
+        Args:
+            optimizer_name (str): Name of optimizer
+            
+        Returns:
+            function: Optimizer function
+        """
+        if optimizer_name == "sgd":
             return Optimizer.sgd
-        elif name == "momentum":
+        elif optimizer_name == "momentum":
             return Optimizer.momentum
-        elif name == "nag":
+        elif optimizer_name == "nag":
             return Optimizer.nag
-        elif name == "rmsprop":
+        elif optimizer_name == "rmsprop":
             return Optimizer.rmsprop
-        elif name == "adam":
+        elif optimizer_name == "adam":
             return Optimizer.adam
-        elif name == "nadam":
+        elif optimizer_name == "nadam":
             return Optimizer.nadam
         else:
-            raise ValueError(f"Optimizer {name} not supported")
+            raise ValueError(f"Optimizer {optimizer_name} not supported")

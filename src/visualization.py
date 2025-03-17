@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.metrics import confusion_matrix, accuracy_score
+from sklearn.metrics import confusion_matrix
 import wandb
 
 def plot_fashion_mnist_samples(X_train, y_train):
@@ -20,7 +20,7 @@ def plot_fashion_mnist_samples(X_train, y_train):
     plt.figure(figsize=(10, 10))
     for i in range(10):
         # Find first instance of class i
-        idx = np.where(y_train == i)[0][0]
+        idx = np.where(np.argmax(y_train, axis=1) == i)[0][0]
         
         # Plot
         plt.subplot(3, 4, i+1)
@@ -30,12 +30,11 @@ def plot_fashion_mnist_samples(X_train, y_train):
     
     plt.tight_layout()
     plt.savefig('fashion_mnist_samples.png')
-    plt.close()
     
     # Log to wandb
     wandb.log({"fashion_mnist_samples": wandb.Image('fashion_mnist_samples.png')})
 
-def plot_confusion_matrix(model, X_test, y_test, dataset):
+def plot_confusion_matrix(model, X_test, y_test):
     """
     Plot confusion matrix for model predictions.
     
@@ -43,23 +42,20 @@ def plot_confusion_matrix(model, X_test, y_test, dataset):
         model (NeuralNetwork): Trained neural network model
         X_test (numpy.ndarray): Test data
         y_test (numpy.ndarray): Test labels
-        dataset (str): Dataset name ('fashion_mnist' or 'mnist')
         
     Returns:
         float: Test accuracy
     """
     # Make predictions
     y_pred = model.predict(X_test)
+    y_true = np.argmax(y_test, axis=1)
     
     # Compute confusion matrix
-    cm = confusion_matrix(y_test, y_pred)
+    cm = confusion_matrix(y_true, y_pred)
     
     # Class names
-    if dataset == 'fashion_mnist':
-        class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
-                       'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
-    else:  # mnist
-        class_names = [str(i) for i in range(10)]
+    class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
+                   'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
     
     # Create a more creative visualization
     plt.figure(figsize=(12, 10))
@@ -77,7 +73,7 @@ def plot_confusion_matrix(model, X_test, y_test, dataset):
     plt.xticks(rotation=45, ha='right')
     
     # Add accuracy information
-    accuracy = accuracy_score(y_test, y_pred)
+    accuracy = np.mean(y_pred == y_true)
     plt.figtext(0.5, 0.01, f'Test Accuracy: {accuracy:.4f}', 
                 ha='center', fontsize=16, bbox={'facecolor':'lightgreen', 'alpha':0.5, 'pad':5})
     
@@ -87,38 +83,28 @@ def plot_confusion_matrix(model, X_test, y_test, dataset):
                 ha='center', va='center', fontsize=15, color='white', 
                 bbox={'facecolor':'green', 'alpha':0.6, 'pad':10})
     
-    # Find the most confused classes
-    np.fill_diagonal(cm, 0)  # Remove diagonal for finding max confusion
-    max_confusion = np.unravel_index(np.argmax(cm), cm.shape)
-    plt.text(max_confusion[1]+0.5, max_confusion[0]+0.5, f'{cm[max_confusion]}', 
-            ha='center', va='center', fontsize=15, color='white', 
-            bbox={'facecolor':'red', 'alpha':0.6, 'pad':10})
-    
     plt.tight_layout()
     plt.savefig('confusion_matrix.png')
-    plt.close()
     
     # Log to wandb
-    wandb.log({
-        "confusion_matrix": wandb.Image('confusion_matrix.png'),
-        "test_accuracy": accuracy
-    })
+    wandb.log({"confusion_matrix": wandb.Image('confusion_matrix.png')})
     
     return accuracy
 
-def plot_loss_comparison(results):
+def plot_loss_comparison(cross_entropy_results, mse_results):
     """
     Plot comparison of loss functions.
     
     Args:
-        results (dict): Dictionary containing training history for different loss functions
+        cross_entropy_results (dict): Results from cross-entropy loss
+        mse_results (dict): Results from mean squared error loss
     """
     plt.figure(figsize=(12, 5))
     
     # Plot training loss
     plt.subplot(1, 2, 1)
-    for loss_name, data in results.items():
-        plt.plot(data['history']['loss'], label=loss_name)
+    plt.plot(cross_entropy_results['loss'], label='Cross Entropy')
+    plt.plot(mse_results['loss'], label='Mean Squared Error')
     plt.title('Training Loss')
     plt.xlabel('Epoch')
     plt.ylabel('Loss')
@@ -126,8 +112,8 @@ def plot_loss_comparison(results):
     
     # Plot validation loss
     plt.subplot(1, 2, 2)
-    for loss_name, data in results.items():
-        plt.plot(data['history']['val_loss'], label=loss_name)
+    plt.plot(cross_entropy_results['val_loss'], label='Cross Entropy')
+    plt.plot(mse_results['val_loss'], label='Mean Squared Error')
     plt.title('Validation Loss')
     plt.xlabel('Epoch')
     plt.ylabel('Loss')
@@ -135,7 +121,6 @@ def plot_loss_comparison(results):
     
     plt.tight_layout()
     plt.savefig('loss_comparison.png')
-    plt.close()
     
     # Log to wandb
     wandb.log({"loss_comparison": wandb.Image('loss_comparison.png')})
@@ -145,8 +130,8 @@ def plot_loss_comparison(results):
     
     # Plot training accuracy
     plt.subplot(1, 2, 1)
-    for loss_name, data in results.items():
-        plt.plot(data['history']['accuracy'], label=loss_name)
+    plt.plot(cross_entropy_results['accuracy'], label='Cross Entropy')
+    plt.plot(mse_results['accuracy'], label='Mean Squared Error')
     plt.title('Training Accuracy')
     plt.xlabel('Epoch')
     plt.ylabel('Accuracy')
@@ -154,8 +139,8 @@ def plot_loss_comparison(results):
     
     # Plot validation accuracy
     plt.subplot(1, 2, 2)
-    for loss_name, data in results.items():
-        plt.plot(data['history']['val_accuracy'], label=loss_name)
+    plt.plot(cross_entropy_results['val_accuracy'], label='Cross Entropy')
+    plt.plot(mse_results['val_accuracy'], label='Mean Squared Error')
     plt.title('Validation Accuracy')
     plt.xlabel('Epoch')
     plt.ylabel('Accuracy')
@@ -163,12 +148,6 @@ def plot_loss_comparison(results):
     
     plt.tight_layout()
     plt.savefig('accuracy_comparison.png')
-    plt.close()
     
     # Log to wandb
     wandb.log({"accuracy_comparison": wandb.Image('accuracy_comparison.png')})
-    
-    # Print test accuracies
-    for loss_name, data in results.items():
-        print(f"Test Accuracy with {loss_name}: {data['test_accuracy']:.4f}")
-        wandb.log({f"test_accuracy_{loss_name}": data['test_accuracy']})

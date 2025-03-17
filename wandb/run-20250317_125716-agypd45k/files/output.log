@@ -1,0 +1,20 @@
+Epoch 1/10: 100%|███████| 844/844 [00:00<00:00, 885.97it/s]
+Epoch 1/10 - loss: 1.3163 - accuracy: 0.4381 - val_loss: 1.0843 - val_accuracy: 0.5453
+Epoch 2/10: 100%|███████| 844/844 [00:00<00:00, 869.94it/s]
+Epoch 2/10 - loss: 0.9765 - accuracy: 0.5900 - val_loss: 0.7301 - val_accuracy: 0.7102
+Epoch 3/10: 100%|███████| 844/844 [00:00<00:00, 901.70it/s]
+Epoch 3/10 - loss: 0.6765 - accuracy: 0.7344 - val_loss: 0.6413 - val_accuracy: 0.7630
+Epoch 4/10: 100%|███████| 844/844 [00:00<00:00, 855.53it/s]
+Epoch 4/10 - loss: 0.5720 - accuracy: 0.7906 - val_loss: 0.5273 - val_accuracy: 0.8123
+Epoch 5/10: 100%|███████| 844/844 [00:00<00:00, 879.90it/s]
+Epoch 5/10 - loss: 0.4941 - accuracy: 0.8262 - val_loss: 0.4964 - val_accuracy: 0.8295
+Epoch 6/10: 100%|███████| 844/844 [00:00<00:00, 880.05it/s]
+Epoch 6/10 - loss: 0.4530 - accuracy: 0.8404 - val_loss: 0.4287 - val_accuracy: 0.8572
+Epoch 7/10: 100%|███████| 844/844 [00:00<00:00, 856.50it/s]
+Epoch 7/10 - loss: 0.4255 - accuracy: 0.8491 - val_loss: 0.4408 - val_accuracy: 0.8487
+Epoch 8/10: 100%|███████| 844/844 [00:00<00:00, 873.97it/s]
+Epoch 8/10 - loss: 0.4054 - accuracy: 0.8550 - val_loss: 0.3920 - val_accuracy: 0.8627
+Epoch 9/10: 100%|███████| 844/844 [00:00<00:00, 856.53it/s]
+Epoch 9/10 - loss: 0.3863 - accuracy: 0.8618 - val_loss: 0.3947 - val_accuracy: 0.8617
+Epoch 10/10: 100%|██████| 844/844 [00:00<00:00, 877.77it/s]
+Epoch 10/10 - loss: 0.3737 - accuracy: 0.8654 - val_loss: 0.3958 - val_accuracy: 0.8620

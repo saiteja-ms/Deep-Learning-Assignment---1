@@ -11,15 +11,19 @@ def sweep_train():
     """
     Training function for wandb sweep.
     """
-    # Initialize wandb
+    # Initialize wandb first
     wandb.init()
     
-    # Access hyperparameters
+    # Access hyperparameters after initialization
     config = wandb.config
+    
+    # Create a meaningful name based on hyperparameters and update the run name
+    run_name = f"hl_{config.num_layers}_bs_{config.batch_size}_ac_{config.activation}"
+    wandb.run.name = run_name
+    wandb.run.save()
     
     # Load data
     (X_train, y_train), (X_val, y_val), (X_test, y_test) = load_data(config.dataset)
-    
     # Create model
     input_size = X_train.shape[1]  # 784 for Fashion MNIST
     hidden_sizes = [config.hidden_size] * config.num_layers
@@ -36,11 +40,6 @@ def sweep_train():
     # Configure optimizer
     optimizer_config = {
         'learning_rate': config.learning_rate,
-        'momentum': config.momentum,
-        'beta': config.beta,
-        'beta1': config.beta1,
-        'beta2': config.beta2,
-        'epsilon': config.epsilon,
         'weight_decay': config.weight_decay
     }
     
@@ -66,9 +65,9 @@ def parse_args():
     parser = argparse.ArgumentParser(description='Run hyperparameter sweep for neural network')
     
     # Wandb arguments
-    parser.add_argument('-wp', '--wandb_project', type=str, default='fashion_mnist_sweep', 
+    parser.add_argument('-wp', '--wandb_project', type=str, default='Fashion_mnist_sweep_backprop', 
                         help='Project name used to track experiments in Weights & Biases dashboard')
-    parser.add_argument('-we', '--wandb_entity', type=str, default='teja_sai', 
+    parser.add_argument('-we', '--wandb_entity', type=str, default='teja_sai-indian-institute-of-technology-madras', 
                         help='Wandb Entity used to track experiments in the Weights & Biases dashboard')
     
     # Dataset arguments
@@ -90,21 +89,16 @@ def main():
         },
         'parameters': {
             'dataset': {'value': args.dataset},
-            'epochs': {'values': [10]},  # Increased from 5 to 10
-            'batch_size': {'values': [32, 64]},
-            'num_layers': {'values': [2, 3]},  # Simplified architecture
-            'hidden_size': {'values': [64, 128, 256]},  # Added larger size
-            'activation': {'values': ['ReLU']},  # Focus on ReLU which works well
-            'optimizer': {'values': ['adam', 'nadam']},  # Focus on best optimizers
-            'learning_rate': {'values': [0.001, 0.0001]},
-            'weight_decay': {'values': [0, 0.0001, 0.0005]},
-            'weight_init': {'value': 'Xavier'},  # Xavier works better
-            'loss': {'value': 'cross_entropy'},
-            'momentum': {'value': 0.9},
-            'beta': {'value': 0.9},
-            'beta1': {'value': 0.9},
-            'beta2': {'value': 0.999},
-            'epsilon': {'value': 1e-8}
+            'epochs': {'values': [5, 10]},
+            'batch_size': {'values': [16, 32, 64]},
+            'num_layers': {'values': [3, 4, 5]},
+            'hidden_size': {'values': [32, 64, 128]},
+            'activation': {'values': ['sigmoid', 'tanh', 'ReLU']},
+            'optimizer': {'values': ['sgd', 'momentum', 'nag', 'rmsprop', 'adam', 'nadam']},
+            'learning_rate': {'values': [1e-4, 1e-3]},
+            'weight_decay': {'values': [0, 0.0005, 0.5]},
+            'weight_init': {'values': ['random', 'Xavier']},
+            'loss': {'value': 'cross_entropy'}
         }
     }
     
@@ -112,7 +106,8 @@ def main():
     sweep_id = wandb.sweep(sweep_config, project=args.wandb_project, entity=args.wandb_entity)
     
     # Run sweep
-    wandb.agent(sweep_id, function=sweep_train, count=10)  # Run 10 experiments
+    wandb.agent(sweep_id, function=sweep_train, count=50)  # Run 50 experiments
 
 if __name__ == "__main__":
     main()
+    

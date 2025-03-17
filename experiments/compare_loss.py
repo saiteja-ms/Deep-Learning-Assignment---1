@@ -112,7 +112,7 @@ def main():
         name="loss_comparison",
         reinit=True
     )
-    plot_loss_comparison(results)
+    plot_loss_comparison(results['cross_entropy'], results['mean_squared_error'])
     wandb.finish()
     
     return results

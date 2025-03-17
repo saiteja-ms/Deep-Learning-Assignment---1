@@ -19,7 +19,8 @@ class NeuralNetwork:
         if weight_init == "random":
             self.weights.append(np.random.randn(input_size, hidden_sizes[0]) * 0.01)
         elif weight_init == "Xavier":
-            self.weights.append(np.random.randn(input_size, hidden_sizes[0]) * np.sqrt(2.0 / (input_size + hidden_sizes[0])))
+            self.weights.append(np.random.randn(input_size, hidden_sizes[0]) * 
+                               np.sqrt(2.0 / (input_size + hidden_sizes[0])))
         self.biases.append(np.zeros((1, hidden_sizes[0])))
         
         # Hidden layers
@@ -68,12 +69,6 @@ class NeuralNetwork:
     def backward(self, X, y, y_pred, loss_derivative):
         batch_size = X.shape[0]
         
-        # Convert y to one-hot encoding if needed
-        if len(y.shape) == 1:
-            y_one_hot = np.zeros((y.size, self.output_size))
-            y_one_hot[np.arange(y.size), y] = 1
-            y = y_one_hot
-        
         # Initialize gradients
         dw = [np.zeros_like(w) for w in self.weights]
         db = [np.zeros_like(b) for b in self.biases]
@@ -118,8 +113,11 @@ class NeuralNetwork:
         # Make predictions
         y_pred = self.predict(X)
         
+        # Convert one-hot encoded labels to class indices
+        y_true = np.argmax(y, axis=1)
+        
         # Calculate accuracy
-        accuracy = np.mean(y_pred == y)
+        accuracy = np.mean(y_pred == y_true)
         
         return accuracy
     
@@ -169,7 +167,9 @@ class NeuralNetwork:
                 epoch_loss += batch_loss * (end_idx - start_idx) / n_samples
                 
                 # Compute accuracy
-                batch_accuracy = np.mean(np.argmax(y_pred, axis=1) == y_batch)
+                batch_pred = np.argmax(y_pred, axis=1)
+                batch_true = np.argmax(y_batch, axis=1)
+                batch_accuracy = np.mean(batch_pred == batch_true)
                 epoch_accuracy += batch_accuracy * (end_idx - start_idx) / n_samples
                 
                 # Backward pass

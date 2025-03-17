@@ -1,0 +1,16 @@
+{"time":"2025-03-17T16:38:13.3895716+05:30","level":"INFO","msg":"stream: starting","core version":"0.19.8","symlink path":"C:\\Users\\DELL\\Documents\\SEMESTER 8\\Deep Learning\\Assignment_1\\wandb\\run-20250317_163813-bgiejg3m\\logs\\debug-core.log"}
+{"time":"2025-03-17T16:38:14.3143898+05:30","level":"INFO","msg":"created new stream","id":"bgiejg3m"}
+{"time":"2025-03-17T16:38:14.3143898+05:30","level":"INFO","msg":"stream: started","id":"bgiejg3m"}
+{"time":"2025-03-17T16:38:14.3143898+05:30","level":"INFO","msg":"writer: Do: started","stream_id":"bgiejg3m"}
+{"time":"2025-03-17T16:38:14.3149548+05:30","level":"INFO","msg":"sender: started","stream_id":"bgiejg3m"}
+{"time":"2025-03-17T16:38:14.3149548+05:30","level":"INFO","msg":"handler: started","stream_id":"bgiejg3m"}
+{"time":"2025-03-17T16:38:14.7267464+05:30","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-03-17T16:39:22.1262415+05:30","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-03-17T16:39:22.1268757+05:30","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-03-17T16:39:23.1358532+05:30","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading output.log","runtime_seconds":0.3775445,"progress":"4.7KB/4.7KB"},{"desc":"uploading wandb-summary.json","runtime_seconds":0.3775445,"progress":"247B/247B"},{"desc":"uploading config.yaml","runtime_seconds":0.0934525,"progress":"974B/974B"}],"total_operations":3}}
+{"time":"2025-03-17T16:39:23.4019118+05:30","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-03-17T16:39:23.7587671+05:30","level":"INFO","msg":"stream: closing","id":"bgiejg3m"}
+{"time":"2025-03-17T16:39:23.7587671+05:30","level":"INFO","msg":"handler: closed","stream_id":"bgiejg3m"}
+{"time":"2025-03-17T16:39:23.7587671+05:30","level":"INFO","msg":"writer: Close: closed","stream_id":"bgiejg3m"}
+{"time":"2025-03-17T16:39:23.7587671+05:30","level":"INFO","msg":"sender: closed","stream_id":"bgiejg3m"}
+{"time":"2025-03-17T16:39:23.7587671+05:30","level":"INFO","msg":"stream: closed","id":"bgiejg3m"}

@@ -2,9 +2,9 @@ import argparse
 import wandb
 import sys
 import os
+import matplotlib.pyplot as plt
 # Add the project root to Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import numpy as np
 from src.data import load_data
 from src.model import NeuralNetwork
 from src.visualization import plot_confusion_matrix
@@ -121,7 +121,7 @@ def main():
         )
         
         # Evaluate on test set and plot confusion matrix
-        test_accuracy = plot_confusion_matrix(model, X_test, y_test, 'mnist')
+        test_accuracy = plot_confusion_matrix(model, X_test, y_test)
         
         # Store results
         results[config["name"]] = {
