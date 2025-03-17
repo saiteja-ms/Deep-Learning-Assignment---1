@@ -1,6 +1,5 @@
 import argparse
 import wandb
-import numpy as np
 from src.data import load_data
 from src.model import NeuralNetwork
 from src.visualization import plot_fashion_mnist_samples, plot_confusion_matrix
@@ -9,30 +8,24 @@ def parse_args():
     parser = argparse.ArgumentParser(description='Train a neural network on Fashion MNIST')
     
     # Wandb arguments
-    parser.add_argument('-wp', '--wandb_project', type=str, default='fashion_mnist_base', 
+    parser.add_argument('-wp', '--wandb_project', type=str, default='myprojectname', 
                         help='Project name used to track experiments in Weights & Biases dashboard')
-    parser.add_argument('-we', '--wandb_entity', type=str, default='teja_sai', 
+    parser.add_argument('-we', '--wandb_entity', type=str, default='myname', 
                         help='Wandb Entity used to track experiments in the Weights & Biases dashboard')
     
     # Dataset arguments
-    parser.add_argument('-d', '--dataset', type=str, default='fashion_mnist', choices=['mnist', 'fashion_mnist'],
-                        help='Dataset to use for training')
-    
-    # Training arguments
+    parser.add_argument('-d', '--dataset', type=str, choices=['mnist', 'fashion_mnist'], default='fashion_mnist', 
+                        help='Dataset to use')
     parser.add_argument('-e', '--epochs', type=int, default=10, 
                         help='Number of epochs to train neural network')
-    parser.add_argument('-b', '--batch_size', type=int, default=64, 
+    parser.add_argument('-b', '--batch_size', type=int, default=16, 
                         help='Batch size used to train neural network')
     
-    # Loss function
-    parser.add_argument('-l', '--loss', type=str, default='cross_entropy', 
-                        choices=['mean_squared_error', 'cross_entropy'],
-                        help='Loss function to use for training')
+    parser.add_argument('-l', '--loss', type=str, choices=['mean_squared_error', 'cross_entropy'], default='cross_entropy', 
+                        help='Loss function to use')
+    parser.add_argument('-o', '--optimizer', type=str, choices=['sgd', 'momentum', 'nag', 'rmsprop', 'adam', 'nadam'], default='adam', 
+                        help='Optimizer to use')
     
-    # Optimizer arguments
-    parser.add_argument('-o', '--optimizer', type=str, default='adam', 
-                        choices=['sgd', 'momentum', 'nag', 'rmsprop', 'adam', 'nadam'],
-                        help='Optimizer to use for training')
     parser.add_argument('-lr', '--learning_rate', type=float, default=0.001, 
                         help='Learning rate used to optimize model parameters')
     parser.add_argument('-m', '--momentum', type=float, default=0.9, 
@@ -45,20 +38,18 @@ def parse_args():
                         help='Beta2 used by adam and nadam optimizers')
     parser.add_argument('-eps', '--epsilon', type=float, default=1e-8, 
                         help='Epsilon used by optimizers')
-    parser.add_argument('-w_d', '--weight_decay', type=float, default=0.0005, 
+    parser.add_argument('-w_d', '--weight_decay', type=float, default=0.0, 
                         help='Weight decay used by optimizers')
-    
-    # Model architecture arguments
-    parser.add_argument('-w_i', '--weight_init', type=str, default='Xavier', 
-                        choices=['random', 'Xavier'],
+    parser.add_argument('-w_i', '--weight_init', type=str, choices=['random', 'Xavier'], default='Xavier', 
                         help='Weight initialization method')
-    parser.add_argument('-nhl', '--num_layers', type=int, default=3, 
+    
+    parser.add_argument('-nhl', '--num_layers', type=int, default=5, 
                         help='Number of hidden layers used in feedforward neural network')
-    parser.add_argument('-sz', '--hidden_size', type=int, default=128, 
+    parser.add_argument('-sz', '--hidden_size', type=int, default=64, 
                         help='Number of hidden neurons in a feedforward layer')
-    parser.add_argument('-a', '--activation', type=str, default='ReLU', 
-                        choices=['identity', 'sigmoid', 'tanh', 'ReLU'],
-                        help='Activation function to use in hidden layers')
+    
+    parser.add_argument('-a', '--activation', type=str, choices=['identity', 'sigmoid', 'tanh', 'ReLU'], default='ReLU', 
+                        help='Activation function to use')
     
     return parser.parse_args()
 
@@ -67,9 +58,11 @@ def main():
     args = parse_args()
     
     # Initialize wandb
+    run_name = f"train_hl_{args.num_layers}_bs_{args.batch_size}_ac_{args.activation}_opt_{args.optimizer}"
     wandb.init(
         project=args.wandb_project,
         entity=args.wandb_entity,
+        name=run_name,
         config={
             "dataset": args.dataset,
             "epochs": args.epochs,
@@ -136,10 +129,13 @@ def main():
     )
     
     # Evaluate on test set and plot confusion matrix
-    test_accuracy = plot_confusion_matrix(model, X_test, y_test, args.dataset)
+    test_accuracy = plot_confusion_matrix(model, X_test, y_test)
+    wandb.log({"test_accuracy": test_accuracy})
     
     # Finish wandb run
     wandb.finish()
+    
+    print(f"Training completed. Test accuracy: {test_accuracy:.4f}")
     
     return model, history, test_accuracy
 

@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "C:\Users\DELL\Documents\SEMESTER 8\Deep Learning\Assignment_1\visualize_probabilities.py", line 55, in <module>
+    axes[i].set_title(f"Class: {class_names[y_samples[i]]}")
+TypeError: only integer scalar arrays can be converted to a scalar index
