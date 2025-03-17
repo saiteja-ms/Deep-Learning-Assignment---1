@@ -1,0 +1,17 @@
+{"time":"2025-03-16T15:15:38.6628992+05:30","level":"INFO","msg":"stream: starting","core version":"0.19.8","symlink path":"C:\\Users\\DELL\\Documents\\SEMESTER 8\\Deep Learning\\Assignment_1\\wandb\\run-20250316_151538-03qeq4hq\\logs\\debug-core.log"}
+{"time":"2025-03-16T15:15:39.0499734+05:30","level":"INFO","msg":"created new stream","id":"03qeq4hq"}
+{"time":"2025-03-16T15:15:39.0499734+05:30","level":"INFO","msg":"stream: started","id":"03qeq4hq"}
+{"time":"2025-03-16T15:15:39.0499734+05:30","level":"INFO","msg":"handler: started","stream_id":"03qeq4hq"}
+{"time":"2025-03-16T15:15:39.0499734+05:30","level":"INFO","msg":"sender: started","stream_id":"03qeq4hq"}
+{"time":"2025-03-16T15:15:39.0499734+05:30","level":"INFO","msg":"writer: Do: started","stream_id":"03qeq4hq"}
+{"time":"2025-03-16T15:15:39.3586602+05:30","level":"ERROR","msg":"HTTP error","status":403,"method":"POST","url":"https://api.wandb.ai/graphql"}
+{"time":"2025-03-16T15:15:39.3586602+05:30","level":"ERROR","msg":"sender: upsertRun:","error":"failed to upsert bucket: returned error 403: {\"data\":{\"upsertBucket\":null},\"errors\":[{\"message\":\"permission denied\",\"path\":[\"upsertBucket\"],\"extensions\":{\"code\":\"PERMISSION_ERROR\"}}]}"}
+{"time":"2025-03-16T15:15:40.3683645+05:30","level":"INFO","msg":"stream: closing","id":"03qeq4hq"}
+{"time":"2025-03-16T15:15:40.3683645+05:30","level":"ERROR","msg":"sender: upsertConfig: RunRecord is nil"}
+{"time":"2025-03-16T15:15:40.6742131+05:30","level":"ERROR","msg":"HTTP error","status":404,"method":"POST","url":"https://api.wandb.ai/graphql"}
+{"time":"2025-03-16T15:15:40.6742131+05:30","level":"ERROR","msg":"runfiles: CreateRunFiles returned error: returned error 404: {\"data\":{\"createRunFiles\":null},\"errors\":[{\"message\":\"project teja_sai/fashion_mnist_base not found during createRunFiles\",\"path\":[\"createRunFiles\"]}]}"}
+{"time":"2025-03-16T15:15:40.6753075+05:30","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-03-16T15:15:40.6753075+05:30","level":"INFO","msg":"handler: closed","stream_id":"03qeq4hq"}
+{"time":"2025-03-16T15:15:40.6753075+05:30","level":"INFO","msg":"writer: Close: closed","stream_id":"03qeq4hq"}
+{"time":"2025-03-16T15:15:40.6753075+05:30","level":"INFO","msg":"sender: closed","stream_id":"03qeq4hq"}
+{"time":"2025-03-16T15:15:40.6758547+05:30","level":"INFO","msg":"stream: closed","id":"03qeq4hq"}

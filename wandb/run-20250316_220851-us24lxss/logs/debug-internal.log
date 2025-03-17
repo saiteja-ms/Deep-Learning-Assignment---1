@@ -1,0 +1,16 @@
+{"time":"2025-03-16T22:08:51.6535618+05:30","level":"INFO","msg":"stream: starting","core version":"0.19.8","symlink path":"C:\\Users\\DELL\\Documents\\SEMESTER 8\\Deep Learning\\Assignment_1\\wandb\\run-20250316_220851-us24lxss\\logs\\debug-core.log"}
+{"time":"2025-03-16T22:08:51.7759833+05:30","level":"INFO","msg":"created new stream","id":"us24lxss"}
+{"time":"2025-03-16T22:08:51.7759833+05:30","level":"INFO","msg":"stream: started","id":"us24lxss"}
+{"time":"2025-03-16T22:08:51.7759833+05:30","level":"INFO","msg":"writer: Do: started","stream_id":"us24lxss"}
+{"time":"2025-03-16T22:08:51.7759833+05:30","level":"INFO","msg":"sender: started","stream_id":"us24lxss"}
+{"time":"2025-03-16T22:08:51.7759833+05:30","level":"INFO","msg":"handler: started","stream_id":"us24lxss"}
+{"time":"2025-03-16T22:08:52.1469656+05:30","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-03-16T22:17:15.7343457+05:30","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-03-16T22:17:15.7353904+05:30","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-03-16T22:17:16.7488774+05:30","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading output.log","runtime_seconds":0.3654486,"progress":"11.7KB/11.7KB"},{"desc":"uploading wandb-summary.json","runtime_seconds":0.3647568,"progress":"247B/247B"},{"desc":"uploading config.yaml","runtime_seconds":0.0490276,"progress":"1.1KB/1.1KB"}],"total_operations":3}}
+{"time":"2025-03-16T22:17:17.1994499+05:30","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-03-16T22:17:17.625635+05:30","level":"INFO","msg":"stream: closing","id":"us24lxss"}
+{"time":"2025-03-16T22:17:17.625635+05:30","level":"INFO","msg":"handler: closed","stream_id":"us24lxss"}
+{"time":"2025-03-16T22:17:17.625635+05:30","level":"INFO","msg":"writer: Close: closed","stream_id":"us24lxss"}
+{"time":"2025-03-16T22:17:17.625635+05:30","level":"INFO","msg":"sender: closed","stream_id":"us24lxss"}
+{"time":"2025-03-16T22:17:17.6261461+05:30","level":"INFO","msg":"stream: closed","id":"us24lxss"}

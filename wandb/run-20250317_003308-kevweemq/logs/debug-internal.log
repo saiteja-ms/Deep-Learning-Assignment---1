@@ -1,0 +1,16 @@
+{"time":"2025-03-17T00:33:08.1186054+05:30","level":"INFO","msg":"stream: starting","core version":"0.19.8","symlink path":"C:\\Users\\DELL\\Documents\\SEMESTER 8\\Deep Learning\\Assignment_1\\wandb\\run-20250317_003308-kevweemq\\logs\\debug-core.log"}
+{"time":"2025-03-17T00:33:08.837217+05:30","level":"INFO","msg":"created new stream","id":"kevweemq"}
+{"time":"2025-03-17T00:33:08.837217+05:30","level":"INFO","msg":"stream: started","id":"kevweemq"}
+{"time":"2025-03-17T00:33:08.837217+05:30","level":"INFO","msg":"handler: started","stream_id":"kevweemq"}
+{"time":"2025-03-17T00:33:08.837217+05:30","level":"INFO","msg":"writer: Do: started","stream_id":"kevweemq"}
+{"time":"2025-03-17T00:33:08.837217+05:30","level":"INFO","msg":"sender: started","stream_id":"kevweemq"}
+{"time":"2025-03-17T00:33:09.2017459+05:30","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-03-17T00:34:39.5401751+05:30","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-03-17T00:34:40.3228821+05:30","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-03-17T00:34:40.5525167+05:30","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"updating run config","runtime_seconds":0.2238218}],"total_operations":1}}
+{"time":"2025-03-17T00:34:41.9638832+05:30","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-03-17T00:34:42.2761902+05:30","level":"INFO","msg":"stream: closing","id":"kevweemq"}
+{"time":"2025-03-17T00:34:42.2761902+05:30","level":"INFO","msg":"handler: closed","stream_id":"kevweemq"}
+{"time":"2025-03-17T00:34:42.2761902+05:30","level":"INFO","msg":"writer: Close: closed","stream_id":"kevweemq"}
+{"time":"2025-03-17T00:34:42.2761902+05:30","level":"INFO","msg":"sender: closed","stream_id":"kevweemq"}
+{"time":"2025-03-17T00:34:42.2767081+05:30","level":"INFO","msg":"stream: closed","id":"kevweemq"}

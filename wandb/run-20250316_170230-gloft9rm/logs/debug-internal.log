@@ -1,0 +1,16 @@
+{"time":"2025-03-16T17:02:31.0006104+05:30","level":"INFO","msg":"stream: starting","core version":"0.19.8","symlink path":"C:\\Users\\DELL\\Documents\\SEMESTER 8\\Deep Learning\\Assignment_1\\wandb\\run-20250316_170230-gloft9rm\\logs\\debug-core.log"}
+{"time":"2025-03-16T17:02:31.1175278+05:30","level":"INFO","msg":"created new stream","id":"gloft9rm"}
+{"time":"2025-03-16T17:02:31.1175278+05:30","level":"INFO","msg":"stream: started","id":"gloft9rm"}
+{"time":"2025-03-16T17:02:31.1175278+05:30","level":"INFO","msg":"writer: Do: started","stream_id":"gloft9rm"}
+{"time":"2025-03-16T17:02:31.1175278+05:30","level":"INFO","msg":"sender: started","stream_id":"gloft9rm"}
+{"time":"2025-03-16T17:02:31.1175278+05:30","level":"INFO","msg":"handler: started","stream_id":"gloft9rm"}
+{"time":"2025-03-16T17:02:31.4829493+05:30","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-03-16T17:02:45.3297724+05:30","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-03-16T17:02:45.3302779+05:30","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-03-16T17:02:46.305444+05:30","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-03-16T17:02:46.3400896+05:30","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading history steps 0-10, summary, console lines 0-19","runtime_seconds":0.0339679}],"total_operations":1}}
+{"time":"2025-03-16T17:02:46.6533772+05:30","level":"INFO","msg":"stream: closing","id":"gloft9rm"}
+{"time":"2025-03-16T17:02:46.6533772+05:30","level":"INFO","msg":"handler: closed","stream_id":"gloft9rm"}
+{"time":"2025-03-16T17:02:46.6533772+05:30","level":"INFO","msg":"sender: closed","stream_id":"gloft9rm"}
+{"time":"2025-03-16T17:02:46.6533772+05:30","level":"INFO","msg":"writer: Close: closed","stream_id":"gloft9rm"}
+{"time":"2025-03-16T17:02:46.6538858+05:30","level":"INFO","msg":"stream: closed","id":"gloft9rm"}

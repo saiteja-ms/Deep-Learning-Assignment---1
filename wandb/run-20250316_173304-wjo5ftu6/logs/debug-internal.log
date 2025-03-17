@@ -1,0 +1,16 @@
+{"time":"2025-03-16T17:33:04.7451068+05:30","level":"INFO","msg":"stream: starting","core version":"0.19.8","symlink path":"C:\\Users\\DELL\\Documents\\SEMESTER 8\\Deep Learning\\Assignment_1\\wandb\\run-20250316_173304-wjo5ftu6\\logs\\debug-core.log"}
+{"time":"2025-03-16T17:33:04.8628282+05:30","level":"INFO","msg":"created new stream","id":"wjo5ftu6"}
+{"time":"2025-03-16T17:33:04.8628282+05:30","level":"INFO","msg":"stream: started","id":"wjo5ftu6"}
+{"time":"2025-03-16T17:33:04.8628282+05:30","level":"INFO","msg":"handler: started","stream_id":"wjo5ftu6"}
+{"time":"2025-03-16T17:33:04.8633861+05:30","level":"INFO","msg":"writer: Do: started","stream_id":"wjo5ftu6"}
+{"time":"2025-03-16T17:33:04.8628282+05:30","level":"INFO","msg":"sender: started","stream_id":"wjo5ftu6"}
+{"time":"2025-03-16T17:33:05.2261629+05:30","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-03-16T17:34:07.9463608+05:30","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-03-16T17:34:07.9468997+05:30","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-03-16T17:34:08.9625244+05:30","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading output.log","runtime_seconds":0.3474322,"progress":"2.4KB/2.4KB"},{"desc":"uploading wandb-summary.json","runtime_seconds":0.3474322,"progress":"245B/245B"},{"desc":"uploading config.yaml","runtime_seconds":0.0294211,"progress":"1.1KB/1.1KB"}],"total_operations":3}}
+{"time":"2025-03-16T17:34:09.9404792+05:30","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-03-16T17:34:10.2704959+05:30","level":"INFO","msg":"stream: closing","id":"wjo5ftu6"}
+{"time":"2025-03-16T17:34:10.2704959+05:30","level":"INFO","msg":"handler: closed","stream_id":"wjo5ftu6"}
+{"time":"2025-03-16T17:34:10.2704959+05:30","level":"INFO","msg":"sender: closed","stream_id":"wjo5ftu6"}
+{"time":"2025-03-16T17:34:10.2704959+05:30","level":"INFO","msg":"writer: Close: closed","stream_id":"wjo5ftu6"}
+{"time":"2025-03-16T17:34:10.2704959+05:30","level":"INFO","msg":"stream: closed","id":"wjo5ftu6"}

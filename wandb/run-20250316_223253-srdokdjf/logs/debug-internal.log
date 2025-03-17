@@ -1,0 +1,16 @@
+{"time":"2025-03-16T22:32:53.819767+05:30","level":"INFO","msg":"stream: starting","core version":"0.19.8","symlink path":"C:\\Users\\DELL\\Documents\\SEMESTER 8\\Deep Learning\\Assignment_1\\wandb\\run-20250316_223253-srdokdjf\\logs\\debug-core.log"}
+{"time":"2025-03-16T22:32:53.9361974+05:30","level":"INFO","msg":"created new stream","id":"srdokdjf"}
+{"time":"2025-03-16T22:32:53.936728+05:30","level":"INFO","msg":"stream: started","id":"srdokdjf"}
+{"time":"2025-03-16T22:32:53.936728+05:30","level":"INFO","msg":"writer: Do: started","stream_id":"srdokdjf"}
+{"time":"2025-03-16T22:32:53.936728+05:30","level":"INFO","msg":"sender: started","stream_id":"srdokdjf"}
+{"time":"2025-03-16T22:32:53.936728+05:30","level":"INFO","msg":"handler: started","stream_id":"srdokdjf"}
+{"time":"2025-03-16T22:32:54.4681186+05:30","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-03-16T22:34:21.3775394+05:30","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-03-16T22:34:21.3781701+05:30","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-03-16T22:34:22.3882523+05:30","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"updating run config","runtime_seconds":0.4213962}],"total_operations":1}}
+{"time":"2025-03-16T22:34:24.5236549+05:30","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-03-16T22:34:25.5033072+05:30","level":"INFO","msg":"stream: closing","id":"srdokdjf"}
+{"time":"2025-03-16T22:34:25.5033072+05:30","level":"INFO","msg":"handler: closed","stream_id":"srdokdjf"}
+{"time":"2025-03-16T22:34:25.5033072+05:30","level":"INFO","msg":"writer: Close: closed","stream_id":"srdokdjf"}
+{"time":"2025-03-16T22:34:25.5033072+05:30","level":"INFO","msg":"sender: closed","stream_id":"srdokdjf"}
+{"time":"2025-03-16T22:34:25.5033072+05:30","level":"INFO","msg":"stream: closed","id":"srdokdjf"}

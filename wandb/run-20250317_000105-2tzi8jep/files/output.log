@@ -1,0 +1,30 @@
+Epoch 1/15: 100%|███████| 844/844 [00:03<00:00, 244.98it/s]
+Epoch 1/15 - loss: nan - accuracy: 0.1021 - val_loss: nan - val_accuracy: 0.0933
+Epoch 2/15: 100%|███████| 844/844 [00:03<00:00, 231.32it/s]
+Epoch 2/15 - loss: nan - accuracy: 0.1007 - val_loss: nan - val_accuracy: 0.0933
+Epoch 3/15: 100%|███████| 844/844 [00:03<00:00, 235.81it/s]
+Epoch 3/15 - loss: nan - accuracy: 0.1007 - val_loss: nan - val_accuracy: 0.0933
+Epoch 4/15: 100%|███████| 844/844 [00:03<00:00, 249.67it/s]
+Epoch 4/15 - loss: nan - accuracy: 0.1007 - val_loss: nan - val_accuracy: 0.0933
+Epoch 5/15: 100%|███████| 844/844 [00:03<00:00, 264.23it/s]
+Epoch 5/15 - loss: nan - accuracy: 0.1007 - val_loss: nan - val_accuracy: 0.0933
+Epoch 6/15: 100%|███████| 844/844 [00:03<00:00, 280.68it/s]
+Epoch 6/15 - loss: nan - accuracy: 0.1007 - val_loss: nan - val_accuracy: 0.0933
+Epoch 7/15: 100%|███████| 844/844 [00:03<00:00, 268.68it/s]
+Epoch 7/15 - loss: nan - accuracy: 0.1007 - val_loss: nan - val_accuracy: 0.0933
+Epoch 8/15: 100%|███████| 844/844 [00:02<00:00, 282.27it/s]
+Epoch 8/15 - loss: nan - accuracy: 0.1007 - val_loss: nan - val_accuracy: 0.0933
+Epoch 9/15: 100%|███████| 844/844 [00:03<00:00, 280.95it/s]
+Epoch 9/15 - loss: nan - accuracy: 0.1007 - val_loss: nan - val_accuracy: 0.0933
+Epoch 10/15: 100%|██████| 844/844 [00:03<00:00, 273.52it/s]
+Epoch 10/15 - loss: nan - accuracy: 0.1007 - val_loss: nan - val_accuracy: 0.0933
+Epoch 11/15: 100%|██████| 844/844 [00:02<00:00, 283.16it/s]
+Epoch 11/15 - loss: nan - accuracy: 0.1007 - val_loss: nan - val_accuracy: 0.0933
+Epoch 12/15: 100%|██████| 844/844 [00:02<00:00, 284.49it/s]
+Epoch 12/15 - loss: nan - accuracy: 0.1007 - val_loss: nan - val_accuracy: 0.0933
+Epoch 13/15: 100%|██████| 844/844 [00:02<00:00, 285.08it/s]
+Epoch 13/15 - loss: nan - accuracy: 0.1007 - val_loss: nan - val_accuracy: 0.0933
+Epoch 14/15: 100%|██████| 844/844 [00:03<00:00, 219.80it/s]
+Epoch 14/15 - loss: nan - accuracy: 0.1007 - val_loss: nan - val_accuracy: 0.0933
+Epoch 15/15: 100%|██████| 844/844 [00:03<00:00, 217.75it/s]
+Epoch 15/15 - loss: nan - accuracy: 0.1007 - val_loss: nan - val_accuracy: 0.0933

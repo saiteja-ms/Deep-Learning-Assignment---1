@@ -1,0 +1,16 @@
+{"time":"2025-03-16T17:36:59.2250633+05:30","level":"INFO","msg":"stream: starting","core version":"0.19.8","symlink path":"C:\\Users\\DELL\\Documents\\SEMESTER 8\\Deep Learning\\Assignment_1\\wandb\\run-20250316_173659-bu8oy4a9\\logs\\debug-core.log"}
+{"time":"2025-03-16T17:36:59.3411407+05:30","level":"INFO","msg":"created new stream","id":"bu8oy4a9"}
+{"time":"2025-03-16T17:36:59.3411407+05:30","level":"INFO","msg":"stream: started","id":"bu8oy4a9"}
+{"time":"2025-03-16T17:36:59.3411407+05:30","level":"INFO","msg":"writer: Do: started","stream_id":"bu8oy4a9"}
+{"time":"2025-03-16T17:36:59.3411407+05:30","level":"INFO","msg":"handler: started","stream_id":"bu8oy4a9"}
+{"time":"2025-03-16T17:36:59.3411407+05:30","level":"INFO","msg":"sender: started","stream_id":"bu8oy4a9"}
+{"time":"2025-03-16T17:36:59.7124009+05:30","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-03-16T17:37:16.7158816+05:30","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-03-16T17:37:16.7163866+05:30","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-03-16T17:37:17.7179003+05:30","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-03-16T17:37:17.7345995+05:30","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading history steps 9-10, summary, console lines 18-19","runtime_seconds":0.0166992}],"total_operations":1}}
+{"time":"2025-03-16T17:37:18.0246188+05:30","level":"INFO","msg":"stream: closing","id":"bu8oy4a9"}
+{"time":"2025-03-16T17:37:18.0246188+05:30","level":"INFO","msg":"handler: closed","stream_id":"bu8oy4a9"}
+{"time":"2025-03-16T17:37:18.0246188+05:30","level":"INFO","msg":"writer: Close: closed","stream_id":"bu8oy4a9"}
+{"time":"2025-03-16T17:37:18.0246188+05:30","level":"INFO","msg":"sender: closed","stream_id":"bu8oy4a9"}
+{"time":"2025-03-16T17:37:18.0246188+05:30","level":"INFO","msg":"stream: closed","id":"bu8oy4a9"}
